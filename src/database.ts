@@ -15,8 +15,5 @@ export async function db() {
     await mongoose.connect(uri);
   } catch (e) {
     console.log("Error in database connection", e);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await mongoose.disconnect();
   }
 }
