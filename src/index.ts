@@ -1,4 +1,4 @@
-import Express, { Request, Response } from "express";
+import express, { Request, Response } from "express";
 import Cors from "cors";
 import "dotenv/config";
 import { db } from "./database";
@@ -9,11 +9,13 @@ import {
   updateExpense,
 } from "./controller";
 
-const app = Express();
+const app = express();
 
 app.use(Cors({ origin: ["http://localhost:3000"] }));
 
-app.use(Express.json());
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT;
 
@@ -25,13 +27,13 @@ try {
   db();
 } catch (error) {
   console.log("Error connecting to database", error);
-} finally {
 }
+
 app.listen(port, () => {
   console.log(`The server is running at http://localhost:${port}`);
 });
 
-app.post("", createExpense);
-app.put("/:id", updateExpense);
-app.get("", findAllExpenses);
-app.delete("/:id", deleteExpense);
+app.post("/expense", createExpense);
+app.put("/expense/:id", updateExpense);
+app.get("/expenses", findAllExpenses);
+app.delete("/expense/:id", deleteExpense);
