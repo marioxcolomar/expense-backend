@@ -29,11 +29,15 @@ try {
   console.log("Error connecting to database", error);
 }
 
-app.listen(port, () => {
-  console.log(`The server is running at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(`The server is running at http://localhost:${port}`);
+  });
+}
 
 app.post("/expense", createExpense);
 app.put("/expense/:id", updateExpense);
 app.get("/expenses", findAllExpenses);
 app.delete("/expense/:id", deleteExpense);
+
+export default app;
