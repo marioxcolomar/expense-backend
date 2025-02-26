@@ -1,6 +1,12 @@
 import Expense from "./model";
 import { Request, Response } from "express";
 
+/**
+ * Endpoint for creating a new expense
+ * @param {string} req.body.description description of expense
+ * @param {number} req.body.amount amount of expense
+ * @param {string} req.body.category category of expense
+ */
 export const createExpense = async (req: Request, res: Response) => {
   try {
     const newExpense = new Expense({
@@ -24,6 +30,11 @@ export const createExpense = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Endpoint for updating an existing expense
+ * @param {string} req.params.id identifier of existing expense
+ * @param {Object} req.body.updates updates to make to existing expense
+ */
 export const updateExpense = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id as string;
@@ -46,6 +57,9 @@ export const updateExpense = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Endpoint for fetching all expenses
+ */
 export const findAllExpenses = async (req: Request, res: Response) => {
   try {
     const expenses = await Expense.find();
@@ -64,6 +78,10 @@ export const findAllExpenses = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Endpoint for deleting an expense
+ * @param {string} req.params.id identifier of existing expense
+ */
 export const deleteExpense = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
